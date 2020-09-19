@@ -1,7 +1,9 @@
 var fs = require('fs');
 
-var inputFile = fs.readFileSync('input.txt');
+input = process.argv[2];
+
+var inputFile = fs.readFileSync(input);
 var str = inputFile.toString();
 var strArray = str.split('\n');
-console.log('We have ' + (strArray.length-1) + ' new line(s) in the input file');
+console.log(strArray.length-1);
 

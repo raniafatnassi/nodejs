@@ -1,14 +1,19 @@
-var mymodule = require('./06-mymodule');
+var fs = require('fs');
+var path = require('path');
 
-var directory = process.argv[2]  
-var ext = process.argv[3];
+module.exports = function(dirname, ext, callback) {
+    ext = '.' + ext;
 
-mymodule(directory, ext, function(err, files) {
-    if (err) {
-        return console.error('error:', err);
-    }
-    
-    files.forEach(function(file) {
-        console.log(file);
+    fs.readdir(dirname, function (err, files) {
+        if(err) {
+            return callback(err)
+        };
+
+        var filteredList = [];
+        files.forEach(function(file) {   
+            if(path.extname(file) === ext)
+            filteredList.push(file);
+        });
+        return callback(null, filteredList);
     });
-});
+};
